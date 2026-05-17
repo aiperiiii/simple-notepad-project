@@ -11,7 +11,6 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QFont>
-#include <QFontDialog>
 #include <QHeaderView>
 #include <QKeySequence>
 #include <QLabel>
@@ -163,22 +162,6 @@ void main_window::setup_format_menu() {
 
     format_menu->addSeparator();
 
-    // Optional Feature #2 — Font dialog
-    const auto *action_font = format_menu->addAction("Font...");
-    connect(action_font, &QAction::triggered, this, [this] {
-        bool ok = false;
-        const QFont font = QFontDialog::getFont(&ok, editor->currentFont(), this, "Font");
-        if (!ok) return;
-
-        auto cursor = editor->textCursor();
-        if (cursor.hasSelection()) {
-            QTextCharFormat fmt;
-            fmt.setFont(font);
-            cursor.mergeCharFormat(fmt);
-        } else {
-            editor->setCurrentFont(font);
-        }
-    });
 
     //color feature
     const auto *action_color = format_menu->addAction("Text Color...");
