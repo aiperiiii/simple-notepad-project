@@ -37,7 +37,7 @@ main_window::main_window() {
     resize(800, 600);
 
     editor = new QTextEdit(this);
-    editor->setContextMenuPolicy(Qt::CustomContextMenu);
+    editor->setContextMenuPolicy(Qt::CustomContextMenu);  //for spellchecker
     setCentralWidget(editor);
 
     transforms.push_back(std::make_unique<uppercase_transform>());
@@ -149,6 +149,8 @@ void main_window::setup_edit_menu() {
     });
 }
 
+
+//color feature
 void main_window::setup_format_menu() {
     auto *format_menu = menuBar()->addMenu("Format");
 
@@ -162,8 +164,6 @@ void main_window::setup_format_menu() {
 
     format_menu->addSeparator();
 
-
-    //color feature
     const auto *action_color = format_menu->addAction("Text Color...");
     connect(action_color, &QAction::triggered, this, [this] {
         const QColor color = QColorDialog::getColor(editor->textColor(), this, "Text Color");
@@ -271,7 +271,7 @@ void main_window::setup_view_menu() {
     });
 }
 
-//feature
+//feature status bar
 void main_window::setup_status_bar() {
     status_words = new QLabel("Words: 0", this);
     status_lines = new QLabel("Lines: 1", this);
